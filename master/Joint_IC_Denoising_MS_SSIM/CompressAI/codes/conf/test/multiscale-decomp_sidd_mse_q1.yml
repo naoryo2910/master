@@ -1,0 +1,30 @@
+#### general settings
+
+name: multiscale-decomp_sidd_mse_q1
+use_tb_logger: true
+gpu_ids: []
+# manual_seed: 1
+
+#### datasets
+
+datasets:
+  sidd:
+    root: /home/csl/Data1/DIC/annotations/sidd_medium_srgb_test.json
+    name: sidd
+    batch_size: 1
+    n_workers: 0
+    use_shuffle: false
+    cuda: false
+    estimation: false
+  
+#### network
+
+network:
+  model: multiscale-decomp
+  
+
+#### path
+path:
+  root: ~/
+  checkpoint: /home/csl/nvme0/Project/Joint-image-compression-and-low-level/ICME2024_Github/models/multiscale-decomp_sidd_mse_q1.tar
+  update: true
