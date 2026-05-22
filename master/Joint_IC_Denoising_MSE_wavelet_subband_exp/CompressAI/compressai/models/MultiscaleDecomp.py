@@ -136,6 +136,15 @@ class MultiscaleDecomp(Cheng2020Anchor):
             non_local_feature_2 = self.non_local_feature_extraction_2(x)
             non_local_feature_2 = self.non_local_feature_extraction_2_CC(non_local_feature_2)
 
+            mask_2_base_source = subband_masks["mask_low"] if self.use_subband_snr else mask
+            non_local_feature_2_unfold, mask_2 = self._enhance_non_local_feature(
+                non_local_feature_2, mask_2_base_source, self.transformer_enhance_2
+            )
+            non_local_feature_2_fold = self._blend_local_non_local(
+                local_feature_2, non_local_feature_2_unfold, mask_2
+            )
+            x = self.feature_fusion_2(x, non_local_feature_2_fold)
+
             if self.use_subband_snr:
                 hf_features = []
                 for mask_key in ["mask_lh", "mask_hl", "mask_hh"]:
@@ -145,18 +154,9 @@ class MultiscaleDecomp(Cheng2020Anchor):
                     hf_features.append(self._blend_local_non_local(
                         local_feature_2, non_local_feature_2_unfold, mask_2
                     ))
-                high_frequency_feature = self.high_frequency_fusion(
-                    torch.cat(hf_features, dim=1)
-                )
+                high_frequency_cat = torch.cat(hf_features, dim=1)
+                high_frequency_feature = self.high_frequency_fusion(high_frequency_cat)
                 x = x + self.high_frequency_gamma * high_frequency_feature
-            else:
-                non_local_feature_2_unfold, mask_2 = self._enhance_non_local_feature(
-                    non_local_feature_2, mask, self.transformer_enhance_2
-                )
-                non_local_feature_2_fold = self._blend_local_non_local(
-                    local_feature_2, non_local_feature_2_unfold, mask_2
-                )
-                x = self.feature_fusion_2(x, non_local_feature_2_fold)
         y = x
 
         return y_inter, y, subband_masks
