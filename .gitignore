@@ -18,3 +18,9 @@ wandb/
 
 data/
 dataset/
+*.so
+experiments/
+tb_logger/
+logs/
+
+data
