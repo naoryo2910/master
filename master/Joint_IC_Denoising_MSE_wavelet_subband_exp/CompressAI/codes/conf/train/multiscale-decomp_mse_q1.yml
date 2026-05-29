@@ -1,6 +1,6 @@
 #### general settings
 
-name: multiscale-decomp-wavelet-subband_mse_q1
+name: multiscale-decomp-wavelet-allsubband_mse_q1
 use_tb_logger: true
 gpu_ids: [1]
 # manual_seed: 1
