@@ -37,6 +37,7 @@ from compressai.models import (
     MeanScaleHyperprior,
     ScaleHyperprior,
     MultiscaleDecomp,
+    SNRStructureGateMultiscaleDecomp,
 )
 
 from .pretrained import load_pretrained
@@ -49,6 +50,7 @@ __all__ = [
     "cheng2020_anchor",
     "cheng2020_attn",
     "multiscale_decomp",
+    "snr_structure_gate_multiscale_decomp",
 ]
 
 model_architectures = {
@@ -59,6 +61,7 @@ model_architectures = {
     "cheng2020-anchor": Cheng2020Anchor,
     "cheng2020-attn": Cheng2020Attention,
     "multiscale-decomp": MultiscaleDecomp,
+    "snr-structure-gate-multiscale-decomp": SNRStructureGateMultiscaleDecomp,
 }
 
 root_url = "https://compressai.s3.amazonaws.com/models/v1"
@@ -248,6 +251,15 @@ cfgs = {
     },
     
     "multiscale-decomp": {
+        1: (128,),
+        2: (128,),
+        3: (128,),
+        4: (192,),
+        5: (192,),
+        6: (192,),
+    },
+
+    "snr-structure-gate-multiscale-decomp": {
         1: (128,),
         2: (128,),
         3: (128,),
@@ -477,4 +489,23 @@ def multiscale_decomp(quality, metric="mse", pretrained=False, progress=True, **
 
     return _load_model_for_multi_scale(
         "multiscale-decomp", metric, quality, pretrained, progress, **kwargs
+    )
+
+
+def snr_structure_gate_multiscale_decomp(
+    quality, metric="mse", pretrained=False, progress=True, **kwargs
+):
+    if metric not in ("mse", "ms-ssim"):
+        raise ValueError(f'Invalid metric "{metric}"')
+
+    if quality < 1 or quality > 6:
+        raise ValueError(f'Invalid quality "{quality}", should be between (1, 6)')
+
+    return _load_model_for_multi_scale(
+        "snr-structure-gate-multiscale-decomp",
+        metric,
+        quality,
+        pretrained,
+        progress,
+        **kwargs
     )

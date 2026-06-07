@@ -30,3 +30,4 @@
 from .priors import *
 from .waseda import *
 from .MultiscaleDecomp import MultiscaleDecomp
+from .SNRStructureGateMultiscaleDecomp import SNRStructureGateMultiscaleDecomp

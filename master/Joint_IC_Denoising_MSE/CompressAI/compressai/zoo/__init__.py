@@ -35,6 +35,7 @@ from .image import (
     mbt2018,
     mbt2018_mean,
     multiscale_decomp,
+    snr_structure_gate_multiscale_decomp,
 )
 from .pretrained import load_pretrained as load_state_dict
 
@@ -46,4 +47,5 @@ models = {
     "cheng2020-anchor": cheng2020_anchor,
     "cheng2020-attn": cheng2020_attn,
     "multiscale-decomp": multiscale_decomp,
+    "snr-structure-gate-multiscale-decomp": snr_structure_gate_multiscale_decomp,
 }
