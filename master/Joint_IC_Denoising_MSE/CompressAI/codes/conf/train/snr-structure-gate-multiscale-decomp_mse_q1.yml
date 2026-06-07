@@ -58,7 +58,7 @@ train:
 #### path
 path:
   root: /mnt/data/caishilv/NAS/Experiments/8883_DIC
- checkpoint: /mnt/data/caishilv/NAS/Experiments/8883_DIC/experiments_noshare/experiments/multiscale-decomp_mse_q1/checkpoints/checkpoint_369.pth.tar
+  checkpoint: /mnt/data/caishilv/NAS/Experiments/8883_DIC/experiments_noshare/experiments/multiscale-decomp_mse_q1/checkpoints/checkpoint_369.pth.tar
   
 #### logger
 
